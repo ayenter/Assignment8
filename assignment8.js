@@ -55,22 +55,20 @@ app.post('/', function(req, res) {
     var url, test, output_url;
     var input = req.body.input;
     INIT_KEY += 1;
-    var newlink = new Link({ long: input, short: (INIT_KEY).toString(36)});
+    var key = (INIT_KEY).toString(36);
+    var newlink = new Link({ long: input, short: key, hits: 0});
     newlink.save();
-    res.render('index', {top: "", output: "" + " " + ""});
+    res.render('index', {top: "", output: "http://localhost:3000/" + key});
 });
 
 
 app.all('/:key', function(req, res) {
-    Card.find({"short" : req.params.key}, function(err, reply) {
+    Link.find({"short" : req.params.key}, function(err, reply) {
     //db.get("short:"+req.params.key, function(err, reply) {
         "use strict";
-
+        console.log(reply);
         if(reply!=null && err==null){
-            
-            db.zincrby(["clicks", 1, req.params.key], function(){});
-
-            res.redirect(reply);
+            res.redirect(reply[0].long);
 
         } else {
             res.render("index", {output: "NOT FOUND"});
