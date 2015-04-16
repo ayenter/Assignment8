@@ -2,7 +2,7 @@ doctype html
 html
   head
     title
-      ROBLEC url shrtnr
+      h1 ROBLEC url shrtnr
   body
     h1 Enter an URL to shorten
     p (or a shortened URL to preview)
@@ -11,7 +11,9 @@ html
         input(type='submit',value='Go')
     a(href = '#{output}') #{output}
     - var topten = JSON.parse(top)
-
+    p
+    h3 Topten
     ul
-      each val in topten
-        a(href = val ) #{val}
+      each val, index in topten
+        p
+        a(href = val.short ) (#{index+1})  -  http://localhost:3000/#{val.short}  -  [#{val.long}]
