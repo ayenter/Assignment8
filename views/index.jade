@@ -1,0 +1,12 @@
+doctype html
+html
+  head
+    title
+      Crazy Eddie's discount URL shortener
+  body
+    h1 Enter an URL to shorten
+    p (or a shortened URL to preview)
+      form(name='shorten',action='/',method='post')
+        input(type='text',name='input',size='50')
+        input(type='submit',value='Go')
+    a(href = '#{output}') #{output}
